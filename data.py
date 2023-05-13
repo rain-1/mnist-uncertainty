@@ -4,8 +4,7 @@ import torch
 import torchvision.transforms as transforms
 from PIL import Image
 import os
-
-example_image_path = "data/mnist_png/training/0/"
+from tqdm import tqdm
 
 # Define a transformation to convert the image to a PyTorch tensor
 transform = transforms.Compose([
@@ -15,14 +14,21 @@ transform = transforms.Compose([
 # X will be [N, 784]
 # Y will be [N, 10] where the values are 0,0,1,0,0,0,0,0 for 2
 
+fast_mode_for_dev = True
+fast_mode_for_dev = False
+
 def load_data_folder(path, label):
     images = []
     labels = []
 
-    label_tensor = torch.nn.functional.one_hot(torch.tensor([label]), num_classes=10)
+    label_tensor = torch.nn.functional.one_hot(torch.tensor([label]), num_classes=10).float()
+
+    dir_listing = os.listdir(path)
+    if fast_mode_for_dev:
+        dir_listing = dir_listing[:200]
 
     # Loop over all files in the folder
-    for filename in os.listdir(path):
+    for filename in tqdm(dir_listing):
         # Check if the file ends with '.png'
         if filename.endswith('.png'):
             # Load the image using PIL
@@ -38,6 +44,32 @@ def load_data_folder(path, label):
     
     return torch.cat(images, dim=0), torch.cat(labels, dim=0)
 
+def load_data_all_folders(base_path):
+    print("Loading 10 sets of data")
+    X, Y = [], []
+    for i in range(10):
+        X_append, Y_append = load_data_folder("{}/{}/".format(base_path,i), i)
+        X.append(X_append)
+        Y.append(Y_append)
+    return torch.cat(X, dim=0), torch.cat(Y, dim=0)
 
-X, Y = load_data_folder(example_image_path, 0)
-print("{} {}".format(X.shape, Y.shape))
+
+def load_individual(path):
+    images = []
+
+    # Load the image using PIL
+    image = Image.open(path)
+
+    # Apply the transformation to the image
+    tensor = transform(image)
+
+    reshaped_tensor = tensor.reshape(1, -1)
+    
+    return reshaped_tensor
+
+if __name__ == "__main__":
+    example_image_path = "data/mnist_png/training/"
+
+    X, Y = load_data_all_folders(example_image_path)
+    print("{} {}".format(X.shape, Y.shape))
+    # torch.Size([60000, 784]) torch.Size([60000, 10])
