@@ -14,8 +14,13 @@ transform = transforms.Compose([
 # X will be [N, 784]
 # Y will be [N, 10] where the values are 0,0,1,0,0,0,0,0 for 2
 
+# Only load 200 images for quick testing/development
 fast_mode_for_dev = True
 fast_mode_for_dev = False
+
+## Flatten the 2D grid down to a 1D tensor
+reshape_tensors = True
+#reshape_tensors = False
 
 def load_data_folder(path, label):
     images = []
@@ -37,7 +42,10 @@ def load_data_folder(path, label):
             # Apply the transformation to the image
             tensor = transform(image)
 
-            reshaped_tensor = tensor.reshape(1, -1)
+            if reshape_tensors:
+                reshaped_tensor = tensor.reshape(1, -1)
+            else:
+                reshaped_tensor = tensor
 
             images.append(reshaped_tensor)
             labels.append(label_tensor)
@@ -53,7 +61,6 @@ def load_data_all_folders(base_path):
         Y.append(Y_append)
     return torch.cat(X, dim=0), torch.cat(Y, dim=0)
 
-
 def load_individual(path):
     images = []
 
@@ -63,7 +70,10 @@ def load_individual(path):
     # Apply the transformation to the image
     tensor = transform(image)
 
-    reshaped_tensor = tensor.reshape(1, -1)
+    if reshape_tensors:
+        reshaped_tensor = tensor.reshape(1, -1)
+    else:
+        reshaped_tensor = tensor
     
     return reshaped_tensor
 

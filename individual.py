@@ -14,7 +14,7 @@ image_path = sys.argv[1]
 
 X = data.load_individual(image_path)
 
-model = models.MNISTClassifier()
+model = models.latest_model()
 utilities.load_model(model)
 
 outputs = model(X)

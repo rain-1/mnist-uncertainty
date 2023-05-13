@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import torch.nn.functional as F
 from torch.utils.data import TensorDataset, DataLoader
 import matplotlib.pyplot as plt
 
@@ -16,11 +17,12 @@ dataset = TensorDataset(X, Y)
 dataloader = DataLoader(dataset, batch_size=hypers.batch_size, shuffle=True)
 
 # Define the neural network and optimizer
-model = models.MNISTClassifier()
+model = models.latest_model()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # Define the loss function (cross-entropy)
-criterion = nn.CrossEntropyLoss()
+#criterion = nn.CrossEntropyLoss()
+criterion = nn.MSELoss()
 
 train_loss = []
 
@@ -34,7 +36,8 @@ for epoch in range(num_epochs):
 
         # Forward pass
         outputs = model(inputs)
-        loss = criterion(outputs, labels)
+        #loss = criterion(outputs, labels)
+        loss = F.nll_loss(outputs, labels)
 
         # Backward pass and optimization
         loss.backward()
@@ -54,7 +57,7 @@ utilities.save_model(model)
 # Plot the loss values
 plt.plot(train_loss)
 plt.title('Training Loss')
-plt.xlabel('Iteration')
+plt.xlabel('Batch')
 plt.ylabel('Loss')
+plt.savefig("plots/loss_{}_{}.png".format(model.name, datetime.datetime.now()))
 plt.show()
-
