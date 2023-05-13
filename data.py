@@ -15,8 +15,8 @@ transform = transforms.Compose([
 # Y will be [N, 10] where the values are 0,0,1,0,0,0,0,0 for 2
 
 # Only load 200 images for quick testing/development
-fast_mode_for_dev = True
-#fast_mode_for_dev = False
+#fast_mode_for_dev = True
+fast_mode_for_dev = False
 
 ## Flatten the 2D grid down to a 1D tensor
 # No need for this, we figured out how to do it inside the models
