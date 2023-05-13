@@ -12,6 +12,8 @@ import utilities
 import hypers
 
 X, Y = data.load_data_all_folders("data/mnist_png/training")
+X = X.to(utilities.device)
+Y = Y.to(utilities.device)
 print("{} {}".format(X.shape, Y.shape))
 dataset = TensorDataset(X, Y)
 # Create a DataLoader
@@ -19,6 +21,7 @@ dataloader = DataLoader(dataset, batch_size=hypers.batch_size, shuffle=True)
 
 # Define the neural network and optimizer
 model = models.latest_model()
+model = model.to(utilities.device)
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # Define the loss function (cross-entropy)

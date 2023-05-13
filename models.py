@@ -98,9 +98,9 @@ class MNISTNet(nn.Module):
         #print("output shape is {}".format(output.shape))
         return output
 
-latest_model = MNISTClassifier
+#latest_model = MNISTClassifier
 #latest_model = NextJournalNet
-#latest_model = MNISTNet
+latest_model = MNISTNet
 
 # output shape is torch.Size([32, 10])
 # output shape is torch.Size([32, 10])

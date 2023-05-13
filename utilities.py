@@ -16,3 +16,6 @@ def load_model(model):
     state_dict = torch.load("{}/{}.pt".format(model_path, model.name))
     #print(state_dict)
     model.load_state_dict(state_dict)
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+#print("Using device: {}".format(device))
