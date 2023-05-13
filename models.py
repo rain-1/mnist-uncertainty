@@ -94,9 +94,10 @@ class MNISTNet(nn.Module):
         x = F.relu(x)
         x = self.dropout2(x)
         x = self.fc2(x)
-        output = F.log_softmax(x, dim=1)
+        #output = F.log_softmax(x, dim=1)
         #print("output shape is {}".format(output.shape))
-        return output
+        #return output
+        return x
 
 #latest_model = MNISTClassifier
 #latest_model = NextJournalNet
