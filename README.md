@@ -10,3 +10,8 @@ micromamba activate mymamba
 micromamba install -c conda-forge -n mymamba pytorch
 ```
 
+# Getting started
+
+* Install the required MNIST data.
+* Try running tests/data.py to test that you have pytorch and can load up an image.
+
