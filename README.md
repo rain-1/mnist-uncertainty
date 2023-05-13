@@ -15,3 +15,9 @@ micromamba install -c conda-forge -n mymamba pytorch tqdm
 * Install the required MNIST data.
 * Try running tests/data.py to test that you have pytorch and can load up an image.
 
+# Workflow
+
+* pick a model in models.py
+* run python train.py
+* run python validate.py
+* run the scripts for checking some individuals if you want

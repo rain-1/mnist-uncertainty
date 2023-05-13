@@ -16,11 +16,12 @@ transform = transforms.Compose([
 
 # Only load 200 images for quick testing/development
 fast_mode_for_dev = True
-fast_mode_for_dev = False
+#fast_mode_for_dev = False
 
 ## Flatten the 2D grid down to a 1D tensor
+# No need for this, we figured out how to do it inside the models
 reshape_tensors = True
-#reshape_tensors = False
+reshape_tensors = False
 
 def load_data_folder(path, label):
     images = []

@@ -17,6 +17,8 @@ class MNISTClassifier(nn.Module):
         x = nn.functional.relu(self.fc2(x))   # apply ReLU activation to the output of the hidden layer
         x = self.fc3(x)                   # apply the output layer
         # TODO: add log softmax here?
+        #output = F.log_softmax(x, dim=1)
+        #print("output shape is {}".format(x.shape))
         return x
 
 # https://nextjournal.com/gkoehler/pytorch-mnist
@@ -93,8 +95,12 @@ class MNISTNet(nn.Module):
         x = self.dropout2(x)
         x = self.fc2(x)
         output = F.log_softmax(x, dim=1)
+        #print("output shape is {}".format(output.shape))
         return output
 
-#latest_model = MNISTClassifier
+latest_model = MNISTClassifier
 #latest_model = NextJournalNet
-latest_model = MNISTNet
+#latest_model = MNISTNet
+
+# output shape is torch.Size([32, 10])
+# output shape is torch.Size([32, 10])

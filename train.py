@@ -4,6 +4,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 from torch.utils.data import TensorDataset, DataLoader
 import matplotlib.pyplot as plt
+import datetime
 
 import data
 import models
@@ -36,8 +37,8 @@ for epoch in range(num_epochs):
 
         # Forward pass
         outputs = model(inputs)
-        #loss = criterion(outputs, labels)
-        loss = F.nll_loss(outputs, labels)
+        loss = criterion(outputs, labels)
+        #loss = F.nll_loss(outputs, labels)
 
         # Backward pass and optimization
         loss.backward()

@@ -163,3 +163,4 @@ cython_debug/
 .vscode/
 data/mnist_png/
 models/*.pt
+plots/*.png
